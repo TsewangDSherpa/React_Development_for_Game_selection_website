@@ -1,2 +1,4 @@
 .DS_Store 
 GITHUB_json_link.txt
+.env
+node_modules
