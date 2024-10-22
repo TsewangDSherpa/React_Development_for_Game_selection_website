@@ -18,12 +18,12 @@ export default class CritiquesController {
         name: req.body.name,
         _id: req.body.user_id,
       };
-      const date = new Date();
+      const lastModified = new Date();
       const CritiqueResponse = await CritiquesDAO.addCritique(
         freeGameID,
         critiqueText,
         userInfo,
-        date
+        lastModified
       );
 
       res.json(CritiqueResponse);
