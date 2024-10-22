@@ -13,6 +13,10 @@ import CritiquesController from "./critiques.controller.js";
 const router = express.Router();
 
 router.route("/").get(GamesController.apiGetGames);
-// router.route("/critique").post(CritiquesController.apiPostCritique);
+router
+  .route("/critique")
+  .post(CritiquesController.apiPostCritique)
+  .put(CritiquesController.apiUpdateCritique)
+  .delete(CritiquesController.apiDeleteCritique);
 
 export default router;

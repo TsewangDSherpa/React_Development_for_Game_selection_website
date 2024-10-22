@@ -32,7 +32,7 @@ export default class CritiquesDAO {
       const critiqueDoc = {
         name: userInfo.name,
         user_id: userInfo._id,
-        date: date,
+        lastModified: date,
         critiqueText: critiqueText,
         freegame_id: new ObjectId(freeGameID),
       };
@@ -40,6 +40,32 @@ export default class CritiquesDAO {
       return await critiques.insertOne(critiqueDoc);
     } catch (e) {
       console.error(`Unable to post critique: ${e}`);
+      return { error: e };
+    }
+  }
+
+  static async updateCritique(critique_id, user_id, critiqueText, date) {
+    try {
+      const updateResponse = await critiques.updateOne(
+        { _id: new ObjectId(critique_id), user_id: user_id },
+        { $set: { lastModified: date, critiqueText: critiqueText } }
+      );
+      return updateResponse;
+    } catch (e) {
+      console.error(`Unable to update critique: ${e}`);
+      return { error: e };
+    }
+  }
+
+  static async deleteCritique(critique_id, user_id) {
+    try {
+      const deleteResponse = await critiques.deleteOne({
+        _id: new ObjectId(critique_id),
+        user_id: user_id,
+      });
+      return deleteResponse;
+    } catch (e) {
+      console.error(`Unable to delete critique: ${e}`);
       return { error: e };
     }
   }

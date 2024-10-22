@@ -32,11 +32,44 @@ export default class CritiquesController {
     }
   }
 
-  //   static async apiUpdateCritique(req, res, next) {
+  static async apiUpdateCritique(req, res, next) {
+    try {
+      const critiqueId = req.body.critique_id;
+      const critiqueText = req.body.critiqueText;
+      const lastModified = new Date();
+      const ReviewResponse = await CritiquesDAO.updateCritique(
+        critiqueId,
+        req.body.user_id,
+        critiqueText,
+        lastModified
+      );
 
-  //   }
+      var { error } = ReviewResponse;
+      if (error) {
+        res.status.json({ error });
+      }
+      if (ReviewResponse.modifiedCount === 0) {
+        throw new Error(
+          "unable to update critique. User may not be original poster"
+        );
+      }
+      res.json(ReviewResponse);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
 
-  //   static async apiDeleteCritique(req, res, next) {
-
-  //   }
+  static async apiDeleteCritique(req, res, next) {
+    try {
+      const critiqueId = req.body.critique_id;
+      const user_id = req.body.user_id;
+      const ReviewResponse = await CritiquesDAO.deleteCritique(
+        critiqueId,
+        user_id
+      );
+      res.json(ReviewResponse);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
 }

@@ -1,9 +1,9 @@
 /*
 Name: Tsewang Dorjey Sherpa
-Date: 2024-10-04
+Date: 2024-10-20
 Course: IT 302 
 Section: 451
-Assignment: Phase 2 Read MongoDB Data using Node.js Assignment
+Assignment: Phase 3 C.U.D. MongoDB Data using Node.js Assignment
 email: tds22@njit.edu
 */
 
@@ -23,7 +23,7 @@ async function main() {
   try {
     await client.connect();
     await GamesDAO.injectDB(client);
-    // await CritiquesDAO.injectDB(client);
+    await CritiquesDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
