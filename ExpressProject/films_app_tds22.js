@@ -1,9 +1,9 @@
 /**
  * Name: Tsewang D Sherpa
- * Date: September 29, 2024
+ * Date: Oct 12, 2024
  * Course: IT 302
  * Section: 451
- * Assignment: Unit 4 Express.js
+ * Assignment: Unit 6 Express.js Part 2 Exercise
  * Email: tds22@njit.edu
  */
 
@@ -12,7 +12,7 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 const app = express();
-
+app.use(express.json());
 const port = 3000;
 
 // MongoDB connection URL (replace with your MongoDB connection string)
@@ -117,8 +117,56 @@ app.get("/films_genre_tds22", async (req, res) => {
       .json({ error: "Error fetching filtered films from the database" });
   }
 });
-// Start the server
 
+app.post("/films_tds22", async (req, res) => {
+  try {
+    // Step 1: Initialize a variable for the MongoClient using the connectToMongo function
+    const db = await connectToMongo();
+    // Step 2: initialize 4 (or more) variables to extract the title, year, genre and actors from the req.body JSON (the request body)
+
+    const { title, year, genre, actors } = req.body;
+    // Step 3: Call the "insertOne" function with these parameters to the films collection
+    const films_tds22 = await db
+      .collection("films_tds22")
+      .insertOne({ title, year, genre, actors });
+
+    // Step 4: If the "acknowledged" field from the results is true, respond with status 201 and an appropriate "message" field and value, otherwise status 500 with an appropriate "error" field and value
+    res
+      .status(201)
+      .json({ message: "Film : (" + title + ") created successfully." });
+  } catch (error) {
+    // Step 5: Remember to include a try-catch block inside the entire function that returns a status 500 with an appropriate "error" field and value
+    res
+      .status(500)
+      .json({ error: "Error posting films values into the database" });
+  }
+});
+
+app.delete("/films_tds22", async (req, res) => {
+  try {
+    // Step 1: Initialize a variable for the MongoClient using the connectToMongo function
+    const db = await connectToMongo();
+    // Step 2: extract the film title from the req.body JSON (the request body)
+    const { title } = req.body;
+    // Step 3: Call the "deleteOne" function with these parameters to the films collection
+    const films_tds22 = await db
+      .collection("films_tds22")
+      .deleteOne({ title: title });
+    // Step 4: If the "deletedCount" field from the results is 1, respond with status 200 and an appropriate "message" field and value, otherwise status 500 with an appropriate "error" field and value
+    if (films_tds22.deletedCount === 1) {
+      res
+        .status(200)
+        .json({ message: "Film : (" + title + ") deleted successfully." });
+    } else {
+      res.status(500).json({ error: "Error deleting films from the database" });
+    }
+    // Step 5: Remember to include a try-catch block inside the entire function that returns a status 500 with an appropriate "error" field
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting films from the database" });
+  }
+});
+
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
