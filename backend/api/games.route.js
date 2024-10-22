@@ -8,14 +8,11 @@ email: tds22@njit.edu
 */
 import express from "express";
 import GamesController from "./games.controller.js";
+import CritiquesController from "./critiques.controller.js";
 
 const router = express.Router();
 
 router.route("/").get(GamesController.apiGetGames);
-
-
-
-
-
+// router.route("/critique").post(CritiquesController.apiPostCritique);
 
 export default router;
