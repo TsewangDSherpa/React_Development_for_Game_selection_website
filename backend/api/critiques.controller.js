@@ -37,23 +37,23 @@ export default class CritiquesController {
       const critiqueId = req.body.critique_id;
       const critiqueText = req.body.critiqueText;
       const lastModified = new Date();
-      const ReviewResponse = await CritiquesDAO.updateCritique(
+      const CritiqueResponse = await CritiquesDAO.updateCritique(
         critiqueId,
         req.body.user_id,
         critiqueText,
         lastModified
       );
 
-      var { error } = ReviewResponse;
+      var { error } = CritiqueResponse;
       if (error) {
         res.status.json({ error });
       }
-      if (ReviewResponse.modifiedCount === 0) {
+      if (CritiqueResponse.modifiedCount === 0) {
         throw new Error(
           "unable to update critique. User may not be original poster"
         );
       }
-      res.json(ReviewResponse);
+      res.json(CritiqueResponse);
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
@@ -63,11 +63,11 @@ export default class CritiquesController {
     try {
       const critiqueId = req.body.critique_id;
       const user_id = req.body.user_id;
-      const ReviewResponse = await CritiquesDAO.deleteCritique(
+      const CritiqueResponse = await CritiquesDAO.deleteCritique(
         critiqueId,
         user_id
       );
-      res.json(ReviewResponse);
+      res.json(CritiqueResponse);
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
