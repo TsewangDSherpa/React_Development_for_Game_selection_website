@@ -1,9 +1,9 @@
 /*
 Name: Tsewang Dorjey Sherpa
-Date: 2024-10-04
+Date: 2024-11-04
 Course: IT 302 
 Section: 451
-Assignment: Phase 2 Read MongoDB Data using Node.js Assignment
+Assignment: Phase 4 Read MongoDB Data using React.js Assignment
 email: tds22@njit.edu
 */
 
@@ -37,5 +37,21 @@ export default class GamesController {
       total_results: totalNumGames,
     };
     res.json(response);
+  }
+
+  static async apiGetGameById(req, res, next) {
+    try {
+      let id = req.params.id || {};
+      const game = await GamesDAO.getGameById(id);
+
+      if (!game) {
+        res.status(404).json({ error: "Not found" });
+        return;
+      }
+
+      res.json(game);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   }
 }
