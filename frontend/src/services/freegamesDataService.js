@@ -35,7 +35,7 @@ class FreeGamesDataService {
     }
 
     deleteCritique(id, userId) {
-        return axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/tds22/games/critiques`, {
+        return axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/tds22/games/critique`, {
             data: {
                 critique_id: id, 
                 user_id: userId
@@ -50,4 +50,5 @@ class FreeGamesDataService {
 
 }
 
-export default new FreeGamesDataService();
+const freegamesDataService = new FreeGamesDataService();
+export default freegamesDataService;

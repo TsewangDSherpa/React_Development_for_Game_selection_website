@@ -26,7 +26,7 @@ const Game = (props) => {
         critiques: []
     })
     let { id } = useParams();
-
+    
     const getGame = id => {
         FreegamesDataService.get(id)
             .then(response => {
@@ -42,6 +42,7 @@ const Game = (props) => {
     }, [id])
 
     const deleteCritique = (critiqueId, index) => {
+        
         FreegamesDataService.deleteCritique(critiqueId, props.user.id)
             .then(response => {
                 setGame((prevState) => {
@@ -98,6 +99,7 @@ const Game = (props) => {
                                     <Card.Body>
                                         <h5>{critique.name + " critiqued on " + new Date(Date.parse(critique.lastModified)).toDateString()}</h5>
                                         <p>{critique.critiqueText}</p>
+                                        
                                         {props.user && props.user.id === critique.user_id &&
                                             <Row>
                                                 <Col><Link

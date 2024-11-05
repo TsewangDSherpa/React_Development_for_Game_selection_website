@@ -8,7 +8,7 @@ email: tds22@njit.edu
 */
 
 import { Routes, Route, NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback  } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddCritique from './components/addCritique';
@@ -21,6 +21,9 @@ import Navbar from "react-bootstrap/Navbar";
 
 function App() {
   const [user, setUser] = useState(null);
+  const loginSetter = useCallback(user => {
+    setUser(user);
+  }, [setUser]);
 
   async function login(user = null) {
     setUser(user);
@@ -29,17 +32,22 @@ function App() {
   async function logout() {
     setUser(null);
   }
-
+  
+  function handleLogout() {
+    if (user) {
+      logout();
+    }
+  }
 
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand> Game Critiques </Navbar.Brand>
+        <Navbar.Brand style={{ paddingLeft: '20px' }} > Game Critiques </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={NavLink} to="/freegames">Free Games</Nav.Link>
-            <Nav.Link as={NavLink} to={user ? "" : "/login"}>{user ? "Logout User" : "Login"}</Nav.Link>
+            <Nav.Link as={NavLink} onClick={handleLogout} to={user ? "/" : "/login"}>{user ? "Logout User" : "Login"}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -52,10 +60,10 @@ function App() {
         <Route path="/freegames/:id/" element={<FreeGame user={user} />}></Route>
         <Route
           path="/freegames/:id/critiques"
-          element={<AddCritique user={user} />}
+          element={<AddCritique user={user}  />}
         ></Route>
 
-        <Route path="/login" element={<Login login={login} />}></Route>
+        <Route path="/login" element={<Login user={user} loginSetter={loginSetter} login={login} />}></Route>
       </Routes>
 
     </div>
