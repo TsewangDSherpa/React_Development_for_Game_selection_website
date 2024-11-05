@@ -168,7 +168,7 @@ const FreeGamesList = () => {
                       Rating: {game.genre}
                     </Card.Text>
                     <Card.Text>{game.short_description}</Card.Text>
-                    <Link to={"/freegames/" + game._id} >View Critiques</Link>
+                    <Link to={"/freegames/" + game._id} >Learn More</Link>
                   </Card.Body>
                 </Card>
               </Col>

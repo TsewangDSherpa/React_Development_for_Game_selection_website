@@ -85,6 +85,7 @@ const Game = (props) => {
                                 <Card.Link href={game.freetogame_profile_url} target="_blank">
                                     {game.freetogame_profile_url}
                                 </Card.Link>
+                                
                                 {props.user &&
                                     <Link to={"/freegames/" + id + "/critique"}>
                                         Add Critique
