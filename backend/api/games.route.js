@@ -14,8 +14,8 @@ const router = express.Router();
 
 router.route("/").get(GamesController.apiGetGames);
 router.route("/id/:id").get(GamesController.apiGetGameById);
+router.route("/genres").get(GamesController.apiGetGenres);
 
-router.route("/critiques").get(CritiquesController.apiGetCritiques);
 router
   .route("/critique")
   .post(CritiquesController.apiPostCritique)

@@ -34,6 +34,8 @@ export default class GamesDAO {
         query = { title: { $regex: filters["title"], $options: "i" } };
       } else if ("platform" in filters) {
         query = { platform: { $eq: filters["platform"] } };
+      } else if ("genre" in filters) {
+        query = { genre: { $eq: filters["genre"] } };
       }
     }
 
@@ -75,6 +77,17 @@ export default class GamesDAO {
     } catch (e) {
       console.error(`something went wrong in getGameById: ${e}`);
       throw e;
+    }
+  }
+
+  static async getGenres() {
+    try {
+      const genres = await games.distinct("genre");
+
+      return genres;
+    } catch (e) {
+      console.error(`something went wrong in getGenres: ${e}`);
+      return [];
     }
   }
 }
