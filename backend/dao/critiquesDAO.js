@@ -69,19 +69,4 @@ export default class CritiquesDAO {
       return { error: e };
     }
   }
-
-  static async getCritiques({ crititquesPerPage = 10, page = 0 } = {}) {
-    let cursor;
-    try {
-      cursor = await critiques
-        .find()
-        .limit(crititquesPerPage)
-        .skip(crititquesPerPage * page);
-      return await cursor.toArray();
-    } catch (e) {
-      console.error(`Unable to get critiques: ${e}`);
-      console.error(e);
-      return { crititquesList: [], totalNumCrititques: 0 };
-    }
-  }
 }

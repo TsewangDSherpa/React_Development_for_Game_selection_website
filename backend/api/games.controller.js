@@ -21,6 +21,8 @@ export default class GamesController {
       filters.title = req.query.title;
     } else if (req.query.platform) {
       filters.platform = req.query.platform;
+    } else if (req.query.genre) {
+      filters.genre = req.query.genre;
     }
 
     const { gamesList, totalNumGames } = await GamesDAO.getGames({
@@ -50,6 +52,15 @@ export default class GamesController {
       }
 
       res.json(game);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
+
+  static async apiGetGenres(req, res, next) {
+    try {
+      const genres = await GamesDAO.getGenres();
+      res.json({ genres });
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
