@@ -72,4 +72,23 @@ export default class CritiquesController {
       res.status(500).json({ error: e.message });
     }
   }
+
+  static async apiGetCritiques(req, res, next) {
+    const crititquesPerPage = req.query.crititquesPerPage
+      ? parseInt(req.query.crititquesPerPage, 10)
+      : 10;
+    const page = req.query.page ? parseInt(req.query.page, 10) : 0;
+    const allCritiques = await CritiquesDAO.getCritiques({
+      crititquesPerPage,
+      page,
+    });
+
+    let response = {
+      critiques: allCritiques,
+      page: page,
+      entries_per_page: crititquesPerPage,
+      total_results: allCritiques.length,
+    };
+    res.json(response);
+  }
 }
