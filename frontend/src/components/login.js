@@ -1,9 +1,9 @@
 /*
 Name: Tsewang Dorjey Sherpa
-Date: 2024-11-04
+Date: 2024-11-21
 Course: IT 302
 Section: 451
-Assignment: Phase 4 Read MongoDB Data using React.js Assignment
+Assignment: Phase 5 C.U.D. Node.js Data using React.js Assignment
 email: tds22@njit.edu
 */
 import React, { useState, useEffect } from 'react'
@@ -32,8 +32,8 @@ function Login({ loginSetter }) {
     return (
         <div>
             {user == null ? (
-                <Form>
-                    <Form.Group>
+                <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px'}}>
+                    <Form.Group style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center' }}>
                         <Form.Label>Username</Form.Label>
                         <Form.Control
                             type="text"
@@ -42,7 +42,7 @@ function Login({ loginSetter }) {
                             onChange={onChangeName}
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center' }}>
                         <Form.Label>ID</Form.Label>
                         <Form.Control
                             type="text"

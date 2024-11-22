@@ -1,9 +1,9 @@
 /*
 Name: Tsewang Dorjey Sherpa
-Date: 2024-11-04
+Date: 2024-11-21
 Course: IT 302
 Section: 451
-Assignment: Phase 4 Read MongoDB Data using React.js Assignment
+Assignment: Phase 5 C.U.D. Node.js Data using React.js Assignment
 email: tds22@njit.edu
 */
 
@@ -59,7 +59,7 @@ function App() {
 
         <Route path="/freegames/:id/" element={<FreeGame user={user} />}></Route>
         <Route
-          path="/freegames/:id/critiques"
+          path="/freegames/:id/critique"
           element={<AddCritique user={user}  />}
         ></Route>
 

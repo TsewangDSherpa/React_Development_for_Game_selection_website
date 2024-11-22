@@ -1,9 +1,9 @@
 /*
 Name: Tsewang Dorjey Sherpa
-Date: 2024-11-04
+Date: 2024-11-21
 Course: IT 302
 Section: 451
-Assignment: Phase 4 Read MongoDB Data using React.js Assignment
+Assignment: Phase 5 C.U.D. Node.js Data using React.js Assignment
 email: tds22@njit.edu
 */
 
@@ -16,6 +16,8 @@ import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+
+
 
 const Game = (props) => {
 
@@ -42,7 +44,6 @@ const Game = (props) => {
     }, [id])
 
     const deleteCritique = (critiqueId, index) => {
-        
         FreegamesDataService.deleteCritique(critiqueId, props.user.id)
             .then(response => {
                 setGame((prevState) => {
@@ -86,14 +87,19 @@ const Game = (props) => {
                                     {game.freetogame_profile_url}
                                 </Card.Link>
                                 
-                                {props.user &&
+                                    <div style={{ marginTop: "10px"}}>
+                                      {props.user &&
                                     <Link to={"/freegames/" + id + "/critique"}>
                                         Add Critique
                                     </Link>}
+                                
+                                    </div>
+                              
                             </Card.Body>
                         </Card>
                         <br></br>
                         <h2>Critiques</h2><br></br>
+                        
                         {game.critiques.map((critique, index) => {
                             return (
                                 <Card key={index}>
@@ -114,6 +120,7 @@ const Game = (props) => {
                                 </Card>
                             )
                         })}
+                        
                     </Col>
                 </Row>
             </Container>
